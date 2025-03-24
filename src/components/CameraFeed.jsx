@@ -4,7 +4,7 @@ function CameraFeed() {
   return (
     <div>
       <img
-        src="http://82.69.41.142/axis-cgi/mjpg/video.cgi"
+        src="http://localhost:5000"
         alt="Live Feed"
         style={{ width: '100%', maxHeight: '500px' }}
       />
