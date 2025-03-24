@@ -6,18 +6,18 @@ import CameraFeed from "../components/CameraFeed";
 const HomePage = () => {
   const [activeTab, setActiveTab] = useState("camera");
   // Initial GPS state with a default location (e.g. New York City)
-  const [gps, setGps] = useState({ 
-    latitude: 40.7128, 
-    longitude: -74.0060, 
-    altitude: null, 
-    status: "Fetching GPS data..." 
+  const [gps, setGps] = useState({
+    latitude: 40.7128,
+    longitude: -74.006,
+    altitude: null,
+    status: "Fetching GPS data...",
   });
   const [gpsHistory, setGpsHistory] = useState([]);
 
   // Fetch GPS data from the backend every 3 seconds
   useEffect(() => {
     const fetchGpsData = () => {
-      fetch("http://localhost:5000/gps")
+      fetch("http://192.168.193.146:5000/gps")
         .then((response) => response.json())
         .then((data) => {
           if (data.latitude && data.longitude) {
@@ -31,7 +31,10 @@ const HomePage = () => {
             };
             setGps(newGps);
           } else {
-            setGps((prev) => ({ ...prev, status: data.status || "No GPS data" }));
+            setGps((prev) => ({
+              ...prev,
+              status: data.status || "No GPS data",
+            }));
           }
         })
         .catch((error) => {
@@ -84,21 +87,29 @@ const HomePage = () => {
       case "tracking":
         return (
           <div className="mb-4 text-center">
-            <h2 className="text-xl font-semibold text-gray-800">Live Tracking</h2>
+            <h2 className="text-xl font-semibold text-gray-800">
+              Live Tracking
+            </h2>
             <div className="mt-6">
-              <LoadScript googleMapsApiKey={import.meta.env.VITE_GOOGLE_API_KEY}>
+              <LoadScript
+                googleMapsApiKey={import.meta.env.VITE_GOOGLE_API_KEY}
+              >
                 <GoogleMap
                   mapContainerStyle={{ width: "100%", height: "400px" }}
                   center={{ lat: gps.latitude, lng: gps.longitude }}
                   zoom={15}
                 >
-                  <Marker position={{ lat: gps.latitude, lng: gps.longitude }} />
+                  <Marker
+                    position={{ lat: gps.latitude, lng: gps.longitude }}
+                  />
                 </GoogleMap>
               </LoadScript>
             </div>
             <div className="mt-4">
               <p className="text-gray-600">Status: {gps.status}</p>
-              {gps.altitude && <p className="text-gray-600">Altitude: {gps.altitude}</p>}
+              {gps.altitude && (
+                <p className="text-gray-600">Altitude: {gps.altitude}</p>
+              )}
               <p className="text-gray-600">Latitude: {gps.latitude}</p>
               <p className="text-gray-600">Longitude: {gps.longitude}</p>
             </div>
