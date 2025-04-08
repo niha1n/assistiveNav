@@ -4,7 +4,7 @@ function CameraFeed() {
   return (
     <div>
       <img
-        src="http://raspberrypi.local:5000/video_feed"
+        src="http://192.168.96.146:5000/video_feed"
         alt="Live Feed"
         style={{ width: '100%', maxHeight: '500px' }}
       />

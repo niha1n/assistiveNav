@@ -17,7 +17,7 @@ const HomePage = () => {
   // Fetch GPS data from the backend every 3 seconds
   useEffect(() => {
     const fetchGpsData = () => {
-      fetch("http://raspberrypi.local:5000/gps")
+      fetch("http://192.168.96.146:5000/gps")
         .then((response) => response.json())
         .then((data) => {
           if (data.latitude && data.longitude) {
